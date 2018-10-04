@@ -3,7 +3,7 @@ AM_INIT_AUTOMAKE([foreign])
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_CONFIG_MACRO_DIR([m4])
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile tst/Makefile inc/Makefile])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS([config.h])
 
@@ -59,6 +59,7 @@ AC_ARG_ENABLE([standalone],
     AS_HELP_STRING([--enable-standalone], [Enable use of malloc]),
     [], [enable_standalone="yes"])
 
+AM_CONDITIONAL([ENABLE_STANDALONE], [test "x$enable_standalone" = "xyes"])
 AS_IF([test "x$enable_standalone" = "xyes"],
 [
     AC_DEFINE([ENABLE_STANDALONE], [1], [Enable use of standalone])
