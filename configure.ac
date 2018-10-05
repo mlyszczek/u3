@@ -1,4 +1,4 @@
-AC_INIT([u3], [1.0.0], [michal.lyszczek@bofc.pl])
+AC_INIT([u3], [0.1.0], [michal.lyszczek@bofc.pl])
 AM_INIT_AUTOMAKE([foreign])
 AC_PROG_CC
 AC_PROG_LIBTOOL
