@@ -13,7 +13,7 @@ if ENABLE_LIBRARY
 lib_LTLIBRARIES = libu3.la
 
 libu3_la_SOURCES = rev.c
-libu3_la_SOURCES += u3.h utils.h
+libu3_la_SOURCES += u3defs.h
 libu3_la_CFLAGS = $(COVERAGE_CFLAGS) -I$(top_srcdir)/inc -DU3_LIBRARY=1
 libu3_la_LDFLAGS = $(COVERAGE_LDFLAGS) -version-info 1:0:0
 

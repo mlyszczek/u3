@@ -7,6 +7,8 @@ AC_CONFIG_FILES([Makefile src/Makefile tst/Makefile inc/Makefile])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS([config.h])
 
+AC_CONFIG_LINKS([tst/mtest.sh:tst/mtest.sh])
+AC_CONFIG_LINKS([tst/rev-test.sh:tst/rev-test.sh])
 
 ###
 # gcov coverage reporting
