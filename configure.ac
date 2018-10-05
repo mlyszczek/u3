@@ -106,9 +106,9 @@ AC_OUTPUT
 
 echo
 echo "u3 compilation configuration summary"
-echo
-echo "enable malloc..........: $enable_malloc"
 echo "build standalone...,...: $enable_standalone"
 echo "build library..........: $enable_library"
+echo ""
+echo "enable malloc..........: $enable_malloc"
 echo ""
 echo "rev: line max..........: $U3_REV_LINE_MAX"

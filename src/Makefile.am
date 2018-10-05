@@ -1,5 +1,3 @@
-include ../Makefile.am.coverage
-
 if ENABLE_STANDALONE
 
 bin_PROGRAMS = rev
