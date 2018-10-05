@@ -199,7 +199,7 @@ static int rev_gen_data
    ========================================================================== */
 
 
-static void rev_print_help(void)
+static void rev_lib_print_help(void)
 {
     int    argc = 2;
     char  *argv[] = { "rev", "-h", NULL };
@@ -225,7 +225,7 @@ static void rev_print_help(void)
    ========================================================================== */
 
 
-static void rev_single_empty_line(void)
+static void rev_lib_single_empty_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -248,7 +248,7 @@ static void rev_single_empty_line(void)
    ========================================================================== */
 
 
-static void rev_single_line(void)
+static void rev_lib_single_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -271,7 +271,7 @@ static void rev_single_line(void)
    ========================================================================== */
 
 
-static void rev_single_full_line(void)
+static void rev_lib_single_full_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -294,7 +294,7 @@ static void rev_single_full_line(void)
    ========================================================================== */
 
 
-static void rev_single_overflow_line(void)
+static void rev_lib_single_overflow_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -335,7 +335,7 @@ static void rev_single_overflow_line(void)
    ========================================================================== */
 
 
-static void rev_single_empty_line_no_nl(void)
+static void rev_lib_single_empty_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -358,7 +358,7 @@ static void rev_single_empty_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_single_line_no_nl(void)
+static void rev_lib_single_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -381,7 +381,7 @@ static void rev_single_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_single_full_line_no_nl(void)
+static void rev_lib_single_full_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -404,7 +404,7 @@ static void rev_single_full_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_single_overflow_line_no_nl(void)
+static void rev_lib_single_overflow_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -445,7 +445,7 @@ static void rev_single_overflow_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_multi_empty_line(void)
+static void rev_lib_multi_empty_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -468,7 +468,7 @@ static void rev_multi_empty_line(void)
    ========================================================================== */
 
 
-static void rev_multi_line(void)
+static void rev_lib_multi_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -491,7 +491,7 @@ static void rev_multi_line(void)
    ========================================================================== */
 
 
-static void rev_multi_full_line(void)
+static void rev_lib_multi_full_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -515,7 +515,7 @@ static void rev_multi_full_line(void)
    ========================================================================== */
 
 
-static void rev_multi_overflow_line(void)
+static void rev_lib_multi_overflow_line(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -557,7 +557,7 @@ static void rev_multi_overflow_line(void)
    ========================================================================== */
 
 
-static void rev_multi_empty_line_no_nl(void)
+static void rev_lib_multi_empty_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -580,7 +580,7 @@ static void rev_multi_empty_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_multi_line_no_nl(void)
+static void rev_lib_multi_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -603,7 +603,7 @@ static void rev_multi_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_multi_full_line_no_nl(void)
+static void rev_lib_multi_full_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -627,7 +627,7 @@ static void rev_multi_full_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_multi_overflow_line_no_nl(void)
+static void rev_lib_multi_overflow_line_no_nl(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -668,7 +668,7 @@ static void rev_multi_overflow_line_no_nl(void)
    ========================================================================== */
 
 
-static void rev_zero_arg(void)
+static void rev_lib_zero_arg(void)
 {
     int   argc = 0;
     char *argv[] = { NULL };
@@ -694,7 +694,7 @@ static void rev_zero_arg(void)
    ========================================================================== */
 
 
-static void rev_one_arg(void)
+static void rev_lib_one_arg(void)
 {
     int   argc = 1;
     char *argv[] = { "", NULL };
@@ -720,7 +720,7 @@ static void rev_one_arg(void)
    ========================================================================== */
 
 
-static void rev_three_args(void)
+static void rev_lib_three_args(void)
 {
     int   argc = 3;
     char *argv[] = { "", "", "", NULL };
@@ -742,7 +742,7 @@ static void rev_three_args(void)
    ========================================================================== */
 
 
-static void rev_file_not_found(void)
+static void rev_lib_file_not_found(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", "/i/dont/exist", NULL };
@@ -764,7 +764,7 @@ static void rev_file_not_found(void)
    ========================================================================== */
 
 
-static void rev_permision_denied(void)
+static void rev_lib_permision_denied(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", REV_TEST_FILE, NULL };
@@ -791,7 +791,7 @@ static void rev_permision_denied(void)
    ========================================================================== */
 
 
-static void rev_invalid_arg(void)
+static void rev_lib_invalid_arg(void)
 {
     int   argc = 2;
     char *argv[] = { "rev", "-a" };
@@ -825,27 +825,27 @@ void u3_rev_test_group(void)
     mt_prepare_test = &prepare_test;
     mt_cleanup_test = &cleanup_test;
 
-    mt_run(rev_print_help);
-    mt_run(rev_single_empty_line);
-    mt_run(rev_single_line);
-    mt_run(rev_single_full_line);
-    mt_run(rev_single_overflow_line);
-    mt_run(rev_single_empty_line_no_nl);
-    mt_run(rev_single_line_no_nl);
-    mt_run(rev_single_full_line_no_nl);
-    mt_run(rev_single_overflow_line_no_nl);
-    mt_run(rev_multi_empty_line);
-    mt_run(rev_multi_line);
-    mt_run(rev_multi_full_line);
-    mt_run(rev_multi_overflow_line);
-    mt_run(rev_multi_empty_line_no_nl);
-    mt_run(rev_multi_line_no_nl);
-    mt_run(rev_multi_full_line_no_nl);
-    mt_run(rev_multi_overflow_line_no_nl);
-    mt_run(rev_zero_arg);
-    mt_run(rev_one_arg);
-    mt_run(rev_three_args);
-    mt_run(rev_invalid_arg);
-    mt_run(rev_file_not_found);
-    mt_run(rev_permision_denied);
+    mt_run(rev_lib_print_help);
+    mt_run(rev_lib_single_empty_line);
+    mt_run(rev_lib_single_line);
+    mt_run(rev_lib_single_full_line);
+    mt_run(rev_lib_single_overflow_line);
+    mt_run(rev_lib_single_empty_line_no_nl);
+    mt_run(rev_lib_single_line_no_nl);
+    mt_run(rev_lib_single_full_line_no_nl);
+    mt_run(rev_lib_single_overflow_line_no_nl);
+    mt_run(rev_lib_multi_empty_line);
+    mt_run(rev_lib_multi_line);
+    mt_run(rev_lib_multi_full_line);
+    mt_run(rev_lib_multi_overflow_line);
+    mt_run(rev_lib_multi_empty_line_no_nl);
+    mt_run(rev_lib_multi_line_no_nl);
+    mt_run(rev_lib_multi_full_line_no_nl);
+    mt_run(rev_lib_multi_overflow_line_no_nl);
+    mt_run(rev_lib_zero_arg);
+    mt_run(rev_lib_one_arg);
+    mt_run(rev_lib_three_args);
+    mt_run(rev_lib_invalid_arg);
+    mt_run(rev_lib_file_not_found);
+    mt_run(rev_lib_permision_denied);
 }
