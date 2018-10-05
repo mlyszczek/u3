@@ -71,6 +71,26 @@ AS_IF([test "x$enable_standalone" = "xyes"],
 
 
 ###
+# --enable-library
+#
+
+
+AC_ARG_ENABLE([library],
+    AS_HELP_STRING([--enable-library], [Enable use of malloc]),
+    [], [enable_library="yes"])
+
+AM_CONDITIONAL([ENABLE_LIBRARY], [test "x$enable_library" = "xyes"])
+AS_IF([test "x$enable_library" = "xyes"],
+[
+    AC_DEFINE([ENABLE_LIBRARY], [1], [Enable use of library])
+],
+# else
+[
+    enable_library="no"
+])
+
+
+###
 # VARIABLE=value options
 #
 
@@ -88,6 +108,7 @@ echo
 echo "u3 compilation configuration summary"
 echo
 echo "enable malloc..........: $enable_malloc"
-echo "enable standalone......: $enable_standalone"
+echo "build standalone...,...: $enable_standalone"
+echo "build library..........: $enable_library"
 echo ""
 echo "rev: line max..........: $U3_REV_LINE_MAX"

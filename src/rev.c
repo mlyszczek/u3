@@ -65,7 +65,7 @@ static void print_help(void)
    ========================================================================== */
 
 
-#if ENABLE_STANDALONE
+#if U3_STANDALONE
 int main
 #else
 int u3_rev_main

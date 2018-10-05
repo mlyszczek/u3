@@ -8,10 +8,10 @@
 
 #define U3_VERSION "v1.0.0"
 
-#if CONFIG_STANDALONE
+#if U3_STANDALONE
 #   define U3_EXIT_FAILURE 1
-#else /* CONFIG_STANDALONE */
+#else /* U3_STANDALONE */
 #   define U3_EXIT_FAILURE -1
-#endif /* CONFIG_STANDALONE */
+#endif /* U3_STANDALONE */
 
 #endif /* U3_U3_H */
