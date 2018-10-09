@@ -29,6 +29,7 @@ missing
 stamp-h1
 tap-driver.sh
 test-driver
+/u3-*
 u3-*.tar.gz
 u3-*.tar.gz.sha1
 www/downloads.html

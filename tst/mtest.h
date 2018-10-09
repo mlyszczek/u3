@@ -88,9 +88,17 @@
    ========================================================================== */
 
 
-#define mt_run(f) do {                                                         \
-    mt_run_named(f, #f);                                                       \
-    } while (0)
+#define mt_run(f) mt_run_named(f, #f)
+
+
+/* ==========================================================================
+    macro runs test 'f' with parameter 'p'.
+
+   'p' can be of any type, as long as it matches prototype of 'f' function.
+   ========================================================================== */
+
+
+#define mt_run_param(f, p) mt_run_param_named(f, p, #f)
 
 
 /* ==========================================================================
@@ -105,6 +113,31 @@
     ++mt_total_tests;                                                          \
     if (mt_prepare_test) mt_prepare_test();                                    \
     f();                                                                       \
+    if (mt_cleanup_test) mt_cleanup_test();                                    \
+    if (mt_test_status != 0)                                                   \
+    {                                                                          \
+        fprintf(stdout, "not ok %d - %s\n", mt_total_tests, curr_test);        \
+        ++mt_total_failed;                                                     \
+    }                                                                          \
+    else                                                                       \
+        fprintf(stdout, "ok %d - %s\n", mt_total_tests, curr_test);            \
+    } while(0)
+
+
+/* ==========================================================================
+    macro runs test 'f' with parameter 'p' and instead of printing function
+    name as a test name, it allows to provide custom name 'n'.
+
+   'p' can be of any type, as long as it matches prototype of 'f' function.
+   ========================================================================== */
+
+
+#define mt_run_param_named(f, p, n) do {                                       \
+    curr_test = n;                                                             \
+    mt_test_status = 0;                                                        \
+    ++mt_total_tests;                                                          \
+    if (mt_prepare_test) mt_prepare_test();                                    \
+    f(p);                                                                      \
     if (mt_cleanup_test) mt_cleanup_test();                                    \
     if (mt_test_status != 0)                                                   \
     {                                                                          \

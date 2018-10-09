@@ -7,5 +7,6 @@
 #define U3_UTILS_H 1
 
 int u3_rev_main(int argc, char *argv[]);
+int u3_seq_main(int argc, char *argv[]);
 
 #endif /* U3_UTILS_H */
