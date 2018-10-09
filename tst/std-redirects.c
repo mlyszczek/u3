@@ -199,6 +199,7 @@ int stderr_to_file(void)
 
 int stdin_from_file(void)
 {
+
     fd_stdin_file = open("./stdin", O_RDWR | O_CREAT | O_TRUNC, 0600);
     if (fd_stdin_file < 0)
     {
@@ -310,6 +311,14 @@ void rewind_stderr_file(void)
 
 void rewind_stdin_file(void)
 {
+    /* some systems (like freebsd) use read pointer that
+     * is inside stdin, when others (like linux) will be
+     * using read pointer from file descriptor stdin points
+     * to. To make both type of system happy we also seek
+     * stdin to the beginning
+     */
+
+    fseek(stdin, 0, SEEK_SET);
     lseek(fd_stdin_file, 0, SEEK_SET);
 }
 
