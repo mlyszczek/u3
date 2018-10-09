@@ -99,8 +99,8 @@ gen_data()
             else
                 # no new line added at the end
 
-                echo -n "${buf}" >> "${rev_test_data}"
-                echo -n "${bufe}" >> "${rev_expected_data}"
+                printf "${buf}" >> "${rev_test_data}"
+                printf "${bufe}" >> "${rev_expected_data}"
             fi
         else
             # there are more lines ahead to generate, add newline
@@ -197,7 +197,7 @@ rev_sh_pipe_single_overflow_line()
 
 rev_sh_pipe_single_empty_line_no_nl()
 {
-    out="$(echo -n "" | ${rev})"
+    out="$(printf "" | ${rev})"
     expected=
     mt_fail "[ \"${out}\" = \"${expected}\" ]"
 }
@@ -209,8 +209,8 @@ rev_sh_pipe_single_empty_line_no_nl()
 
 rev_sh_pipe_single_line_no_nl()
 {
-    out="$(echo -n "123456" | ${rev})"
-    expected="$(echo -n "654321")"
+    out="$(printf "123456" | ${rev})"
+    expected="$(printf "654321")"
     mt_fail "[ \"${out}\" = \"${expected}\" ]"
 }
 
@@ -441,9 +441,9 @@ rev_sh_file_single_empty_line_no_nl()
 
 rev_sh_file_single_line_no_nl()
 {
-    echo -n "123456" > "${rev_test_file}"
+    printf "123456" > "${rev_test_file}"
     out="$(${rev} "${rev_test_file}")"
-    expected="$(echo -n "654321")"
+    expected="$(printf "654321")"
     mt_fail "[ \"${out}\" = \"${expected}\" ]"
 }
 
