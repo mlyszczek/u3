@@ -796,7 +796,7 @@ static void rev_lib_invalid_arg(void)
     int   argc = 2;
     char *argv[] = { "rev", "-a" };
     char  buf[128] = {0};
-    char  *expected = "invalid option -a\nusage: rev [ -v | -h | <file> ]\n";
+    char  *expected = "e/invalid option -a\nusage: rev [ -v | -h | <file> ]\n";
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     stderr_to_file();

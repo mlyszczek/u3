@@ -44,7 +44,7 @@ strcmp()
     string="$1"
     substring="$2"
 
-    if [ "${string#*$substring}" != "$string" ]
+    if expr "${string}" : "${substring}" > /dev/null
     then
         # $substring is in $string
         return 0
@@ -614,7 +614,7 @@ rev_sh_three_args()
 rev_sh_invalid_arg()
 {
     ${rev} -a 2>stderr
-    mt_fail "strcmp \"$(cat stderr)\" \"usage: rev [ -v | -h | <file> ]\""
+    mt_fail "strcmp \"$(cat stderr)\" \"e/invalid option -a\""
 }
 
 

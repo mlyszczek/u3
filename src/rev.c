@@ -117,7 +117,7 @@ int u3_rev_main
                 break;
 
             default:
-                fprintf(stderr, "invalid option -%c\n", argv[1][1]);
+                fprintf(stderr, "e/invalid option -%c\n", argv[1][1]);
                 print_help();
                 ret = U3_EXIT_FAILURE;
                 errno = EINVAL;
