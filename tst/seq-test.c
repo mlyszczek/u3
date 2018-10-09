@@ -579,22 +579,26 @@ static void invalid_tests(void)
     for (p = params_1; p->errnum != 0; ++p)
     {
         long_to_num(p);
-        sprintf(tname, "seq_test (invalid) %s", p->last);
+        sprintf(tname, "seq_test (invalid) %s", p->last ? p->last : "(null)");
         mt_run_param_named(invalid_test_1, p, tname);
     }
 
     for (p = params_2; p->errnum != 0; ++p)
     {
         long_to_num(p);
-        sprintf(tname, "seq_test (invalid) %s %s", p->first, p->last);
+        sprintf(tname, "seq_test (invalid) %s %s",
+                p->first ? p->first : "(null)",
+                p->last ? p->last : "(null)");
         mt_run_param_named(invalid_test_2, p, tname);
     }
 
     for (p = params_3; p->errnum != 0; ++p)
     {
         long_to_num(p);
-        sprintf(tname, "seq_test (invalid) %s %s %s", p->first,
-                p->increment, p->last);
+        sprintf(tname, "seq_test (invalid) %s %s %s",
+                p->first ? p->first : "(null)",
+                p->increment ? p->increment : "(null)",
+                p->last ? p->last : "(null)");
         mt_run_param_named(invalid_test_3, p, tname);
     }
 }
