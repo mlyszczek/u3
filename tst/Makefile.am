@@ -18,4 +18,4 @@ TESTS = $(check_PROGRAMS) $(dist_check_SCRIPTS)
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) \
 	$(top_srcdir)/tap-driver.sh
 
-EXTRA_DIST=data
+EXTRA_DIST=data mtest.sh
