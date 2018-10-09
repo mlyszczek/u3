@@ -11,6 +11,7 @@ AC_CONFIG_LINKS([tst/mtest.sh:tst/mtest.sh])
 AC_CONFIG_LINKS([tst/rev-test.sh:tst/rev-test.sh])
 
 AC_FUNC_MMAP
+AC_CHECK_HEADERS([linux/limits.h])
 
 ###
 # gcov coverage reporting

@@ -13,7 +13,10 @@
 
 #include "config.h"
 
-#include <linux/limits.h>
+#if HAVE_LINUX_LIMITS_H
+#   include <linux/limits.h>
+#endif
+
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
