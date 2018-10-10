@@ -843,6 +843,8 @@ static void rev_lib_invalid_arg(void)
    ========================================================================== */
 
 
+#if HAVE_MUTABLE_STDOUT
+
 static void rev_lib_stdout_error(void)
 {
     int   argc = 2;
@@ -866,10 +868,14 @@ static void rev_lib_stdout_error(void)
     mt_fail(strncmp(buf, "e/fputs()", 9) == 0);
 }
 
+#endif /* HAVE_MUTABLE_STDOUT */
+
 
 /* ==========================================================================
    ========================================================================== */
 
+
+#if HAVE_MUTABLE_STDOUT
 
 static void rev_lib_stdout_error_no_nl(void)
 {
@@ -893,6 +899,8 @@ static void rev_lib_stdout_error_no_nl(void)
     unlink(REV_TEST_STDOUT);
 }
 
+#endif /* HAVE_MUTABLE_STDOUT */
+
 
 /* ==========================================================================
                                               _
@@ -906,8 +914,12 @@ static void rev_lib_stdout_error_no_nl(void)
 
 int main(void)
 {
+#if HAVE_MUTABLE_STDOUT
+
     mt_run(rev_lib_stdout_error);
     mt_run(rev_lib_stdout_error_no_nl);
+
+#endif /* HAVE_MUTABLE_STDOUT */
 
     mt_prepare_test = &prepare_test;
     mt_cleanup_test = &cleanup_test;

@@ -651,6 +651,8 @@ static void seq_print_version(void)
    ========================================================================== */
 
 
+#if HAVE_MUTABLE_STDOUT
+
 static void seq_stdout_error(void)
 {
     int    argc = 2;
@@ -670,6 +672,8 @@ static void seq_stdout_error(void)
     restore_stderr();
 }
 
+#endif /* HAVE_MUTABLE_STDOUT */
+
 
 /* ==========================================================================
                                               _
@@ -683,7 +687,11 @@ static void seq_stdout_error(void)
 
 int main(void)
 {
+#if HAVE_MUTABLE_STDOUT
+
     mt_run(seq_stdout_error);
+
+#endif /* HAVE_MUTABLE_STDOUT */
 
     mt_prepare_test = prepare_test;
     mt_cleanup_test = cleanup_test;

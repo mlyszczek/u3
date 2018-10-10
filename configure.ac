@@ -26,6 +26,28 @@ AC_SUBST(COVERAGE_LDFLAGS)
 
 
 ###
+# detect whether HAVE_MUTABLE_STDOUT
+#
+
+
+AC_MSG_CHECKING("whether stdout is modifiable")
+AC_TRY_RUN(
+[
+    #include <stdio.h>
+    int main() { FILE *f = NULL; stdout = f; return stdout != NULL; }
+]
+, # if true
+[
+    AC_DEFINE([HAVE_MUTABLE_STDOUT], [1], [stdout is mutable])
+    AC_MSG_RESULT("yes")
+]
+, # if false
+[
+    AC_MSG_RESULT("no")
+])
+
+
+###
 # --enable-analyzer
 #
 

@@ -13,6 +13,9 @@
 
    ========================================================================== */
 
+#if HAVE_CONFIG_H
+#   include "config.h"
+#endif
 
 #include <errno.h>
 #include <stdio.h>
@@ -32,8 +35,13 @@
    ========================================================================== */
 
 
+#if HAVE_MUTABLE_STDOUT
+
 static FILE *stdout_save;
 static FILE *stdout_ro;
+
+#endif /* HAVE_MUTABLE_STDOUT */
+
 static int   fd_stdin = -1;
 static int   fd_stdout = -1;
 static int   fd_stderr = -1;
@@ -176,6 +184,8 @@ int stdout_to_file
    ========================================================================== */
 
 
+#if HAVE_MUTABLE_STDOUT
+
 int stdout_sabotage
 (
     const char *file
@@ -204,17 +214,23 @@ int stdout_sabotage
     return 0;
 }
 
+#endif /* HAVE_MUTABLE_STDOUT */
+
 
 /* ==========================================================================
     Recover stdout from sabotage
    ========================================================================== */
 
 
+#if HAVE_MUTABLE_STDOUT
+
 void stdout_recover(void)
 {
     stdout = stdout_save;
     fclose(stdout_ro);
 }
+
+#endif /* HAVE_MUTABLE_STDOUT */
 
 
 /* ==========================================================================
