@@ -8,9 +8,9 @@
 
 #include <sys/types.h>
 
-int stdout_to_file(void);
-int stderr_to_file(void);
-int stdin_from_file(void);
+int stdout_to_file(const char *file);
+int stderr_to_file(const char *file);
+int stdin_from_file(const char *file);
 int restore_stdout(void);
 int restore_stderr(void);
 int restore_stdin(void);

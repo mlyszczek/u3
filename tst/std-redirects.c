@@ -137,7 +137,10 @@ static int restore_fd
    ========================================================================== */
 
 
-int stdout_to_file(void)
+int stdout_to_file
+(
+    const char *file  /* file where stdout should be redirected */
+)
 {
     /* flush stdout in case there is some cached data in there - it is
      * possible fflush occurs after our redirect and thus data that
@@ -147,7 +150,7 @@ int stdout_to_file(void)
 
     fflush(stdout);
 
-    fd_stdout_file = open("./stdout", O_RDWR | O_CREAT | O_TRUNC, 0600);
+    fd_stdout_file = open(file, O_RDWR | O_CREAT | O_TRUNC, 0600);
     if (fd_stdout_file < 0)
     {
         perror("open()");
@@ -171,9 +174,12 @@ int stdout_to_file(void)
    ========================================================================== */
 
 
-int stderr_to_file(void)
+int stderr_to_file
+(
+    const char *file  /* file where stderr should be redirected */
+)
 {
-    fd_stderr_file = open("./stderr", O_RDWR | O_CREAT | O_TRUNC, 0600);
+    fd_stderr_file = open(file, O_RDWR | O_CREAT | O_TRUNC, 0600);
     if (fd_stderr_file < 0)
     {
         perror("open()");
@@ -197,10 +203,13 @@ int stderr_to_file(void)
    ========================================================================== */
 
 
-int stdin_from_file(void)
+int stdin_from_file
+(
+    const char *file  /* file where stdin should be redirected */
+)
 {
 
-    fd_stdin_file = open("./stdin", O_RDWR | O_CREAT | O_TRUNC, 0600);
+    fd_stdin_file = open(file, O_RDWR | O_CREAT | O_TRUNC, 0600);
     if (fd_stdin_file < 0)
     {
         perror("open()");
@@ -235,7 +244,6 @@ int restore_stdout(void)
     close(fd_stdout);
     fd_stdout_file = -1;
     fd_stdout = -1;
-    unlink("./stdout");
     return 0;
 }
 
@@ -256,7 +264,6 @@ int restore_stderr(void)
     close(fd_stderr);
     fd_stderr_file = -1;
     fd_stderr = -1;
-    unlink("./stderr");
     return 0;
 }
 
@@ -277,7 +284,6 @@ int restore_stdin(void)
     close(fd_stdin);
     fd_stdin_file = -1;
     fd_stdin = -1;
-    unlink("./stdin");
     return 0;
 }
 

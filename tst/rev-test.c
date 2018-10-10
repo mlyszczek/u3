@@ -42,6 +42,9 @@
 mt_defs();
 
 #define REV_TEST_FILE "./rev-test-file"
+#define REV_TEST_STDOUT "./rev-test-stdout"
+#define REV_TEST_STDERR "./rev-test-stderr"
+#define REV_TEST_STDIN "./rev-test-stdin"
 
 
 /* ==========================================================================
@@ -60,7 +63,7 @@ mt_defs();
 
 static void prepare_test(void)
 {
-    stdout_to_file();
+    stdout_to_file(REV_TEST_STDOUT);
 }
 
 
@@ -72,6 +75,9 @@ static void cleanup_test(void)
 {
     restore_stdout();
     unlink(REV_TEST_FILE);
+    unlink(REV_TEST_STDOUT);
+    unlink(REV_TEST_STDERR);
+    unlink(REV_TEST_STDIN);
 }
 
 
@@ -208,7 +214,7 @@ static void rev_lib_print_help(void)
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_fok(u3_rev_main(argc, argv));
 
     /* check if help really did print, just check first line
@@ -316,7 +322,7 @@ static void rev_lib_single_overflow_line(void)
 
 #else /* ENABLE_MALLOC */
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_ferr(u3_rev_main(argc, argv), ENOBUFS);
     mt_fail(read_stdout_file(buf, sizeof(buf)) == 0);
     mt_fail(buf[0] == '\0');
@@ -426,7 +432,7 @@ static void rev_lib_single_overflow_line_no_nl(void)
 
 #else /* ENABLE_MALLOC */
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_ferr(u3_rev_main(argc, argv), ENOBUFS);
     mt_fail(read_stdout_file(buf, sizeof(buf)) == 0);
     mt_fail(buf[0] == '\0');
@@ -538,7 +544,7 @@ static void rev_lib_multi_overflow_line(void)
 
 #else /* ENABLE_MALLOC */
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_ferr(u3_rev_main(argc, argv), ENOBUFS);
     mt_fail(read_stdout_file(buf, sizeof(buf)) == 0);
     mt_fail(buf[0] == '\0');
@@ -649,7 +655,7 @@ static void rev_lib_multi_overflow_line_no_nl(void)
 
 #else /* ENABLE_MALLOC */
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_ferr(u3_rev_main(argc, argv), ENOBUFS);
     mt_fail(read_stdout_file(buf, sizeof(buf)) == 0);
     mt_fail(buf[0] == '\0');
@@ -677,7 +683,7 @@ static void rev_lib_zero_arg(void)
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-    stdin_from_file();
+    stdin_from_file(REV_TEST_STDIN);
     strcpy(expected, "987654321");
     write_stdin_file("123456789", 9);
     rewind_stdin_file();
@@ -703,7 +709,7 @@ static void rev_lib_one_arg(void)
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-    stdin_from_file();
+    stdin_from_file(REV_TEST_STDIN);
     strcpy(expected, "987654321");
     write_stdin_file("123456789", 9);
     rewind_stdin_file();
@@ -728,7 +734,7 @@ static void rev_lib_three_args(void)
     char  *expected = "usage: rev [ -v | -h | <file> ]\n";
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_ferr(u3_rev_main(argc, argv), EINVAL);
     rewind_stderr_file();
     mt_fail(read_stdout_file(buf, sizeof(buf)) == 0);
@@ -750,7 +756,7 @@ static void rev_lib_file_not_found(void)
     char  *expected = "e/fopen(): ";
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_ferr(u3_rev_main(argc, argv), ENOENT);
     rewind_stderr_file();
     mt_fail(read_stdout_file(buf, sizeof(buf)) == 0);
@@ -774,7 +780,7 @@ static void rev_lib_permision_denied(void)
     char  *expected = "e/fopen(): ";
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     rev_gen_data(n, 0, REV_TEST_FILE, trash);
     chmod(REV_TEST_FILE, 0200);
     mt_ferr(u3_rev_main(argc, argv), EACCES);
@@ -799,7 +805,7 @@ static void rev_lib_invalid_arg(void)
     char  *expected = "e/invalid option -a\nusage: rev [ -v | -h | <file> ]\n";
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-    stderr_to_file();
+    stderr_to_file(REV_TEST_STDERR);
     mt_ferr(u3_rev_main(argc, argv), EINVAL);
     rewind_stderr_file();
     mt_fail(read_stdout_file(buf, sizeof(buf)) == 0);

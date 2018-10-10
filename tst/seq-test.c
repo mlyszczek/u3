@@ -17,15 +17,16 @@
 #   include <linux/limits.h>
 #endif
 
+#include <errno.h>
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
-#include <errno.h>
+#include <unistd.h>
 
+#include "fops.h"
 #include "mtest.h"
 #include "std-redirects.h"
 #include "u3.h"
-#include "fops.h"
 
 
 /* ==========================================================================
@@ -40,6 +41,8 @@
 
 mt_defs();
 #define EXPECTED_DIR TEST_DATA_DIR"/seq"
+#define SEQ_TEST_STDOUT "./seq-test-stdout"
+#define SEQ_TEST_STDERR "./seq-test-stderr"
 
 
 /* ==========================================================================
@@ -99,7 +102,7 @@ char long_min[32];  /* string representation of LONG_MIN */
 
 static void prepare_test(void)
 {
-    stdout_to_file();
+    stdout_to_file(SEQ_TEST_STDOUT);
 }
 
 
@@ -110,6 +113,8 @@ static void prepare_test(void)
 static void cleanup_test(void)
 {
     restore_stdout();
+    unlink(SEQ_TEST_STDOUT);
+    unlink(SEQ_TEST_STDERR);
 }
 
 
@@ -179,7 +184,7 @@ static void valid_test_1
 
     mt_fok(u3_seq_main(argc, argv));
     rewind_stdout_file();
-    mt_fail(file_equal(expected_file, "./stdout") == 1);
+    mt_fail(file_equal(expected_file, SEQ_TEST_STDOUT) == 1);
 }
 
 
@@ -209,7 +214,7 @@ static void valid_test_2
 
     mt_fok(u3_seq_main(argc, argv));
     rewind_stdout_file();
-    mt_fail(file_equal(expected_file, "./stdout") == 1);
+    mt_fail(file_equal(expected_file, SEQ_TEST_STDOUT) == 1);
 }
 
 
@@ -243,7 +248,7 @@ static void valid_test_3
 
     mt_fok(u3_seq_main(argc, argv));
     rewind_stdout_file();
-    mt_fail(file_equal(expected_file, "./stdout") == 1);
+    mt_fail(file_equal(expected_file, SEQ_TEST_STDOUT) == 1);
 }
 
 
@@ -266,7 +271,7 @@ static void invalid_test_1
     argv[1] = p->last;
     buf = '\0';
 
-    stderr_to_file();
+    stderr_to_file(SEQ_TEST_STDERR);
     mt_ferr(u3_seq_main(argc, argv), p->errnum);
     restore_stderr();
     rewind_stdout_file();
@@ -296,7 +301,7 @@ static void invalid_test_2
     argv[2] = p->last;
     buf = '\0';
 
-    stderr_to_file();
+    stderr_to_file(SEQ_TEST_STDERR);
     mt_ferr(u3_seq_main(argc, argv), p->errnum);
     restore_stderr();
     rewind_stdout_file();
@@ -327,7 +332,7 @@ static void invalid_test_3
     argv[3] = p->last;
     buf = '\0';
 
-    stderr_to_file();
+    stderr_to_file(SEQ_TEST_STDERR);
     mt_ferr(u3_seq_main(argc, argv), p->errnum);
     restore_stderr();
     rewind_stdout_file();
@@ -619,7 +624,7 @@ static void seq_print_help(void)
         "       seq <first> <increment> <last>\n";
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-    stderr_to_file();
+    stderr_to_file(SEQ_TEST_STDERR);
     mt_ferr(u3_seq_main(argc, argv), EINVAL);
 
     rewind_stderr_file();
