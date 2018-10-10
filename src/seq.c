@@ -138,6 +138,31 @@ int u3_seq_main
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
+    if (argc == 2)
+    {
+        if (argv[1] && argv[1][0] == '-')
+        {
+            if (argv[1][1] == 'v')
+            {
+                /* '-v' passed, print version and exit
+                 */
+
+                fprintf(stderr, "seq " U3_SEQ_VERSION "\n"
+                        "u3 " U3_VERSION "\n");
+                return 0;
+            }
+
+            if (argv[1][1] == 'h')
+            {
+                /* '-h' passed, print help and exit
+                 */
+
+                print_help();
+                return 0;
+            }
+        }
+    }
+
     /* if some arguments are not passed, their default value should be 1
      */
 

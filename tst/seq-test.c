@@ -618,14 +618,37 @@ static void seq_print_help(void)
     int    argc = 2;
     char  *argv[] = { "seq", "-h", NULL };
     char   buf[128] = {0};
-    char  *expected = "e/invalid number passed\n"
+    char  *expected =
         "usage: seq <last>\n"
         "       seq <first> <last>\n"
         "       seq <first> <increment> <last>\n";
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     stderr_to_file(SEQ_TEST_STDERR);
-    mt_ferr(u3_seq_main(argc, argv), EINVAL);
+    mt_fok(u3_seq_main(argc, argv));
+
+    rewind_stderr_file();
+    read_stderr_file(buf, sizeof(buf));
+    mt_fail(strncmp(buf, expected, strlen(expected)) == 0);
+    restore_stderr();
+}
+
+
+/* ==========================================================================
+   ========================================================================== */
+
+
+static void seq_print_version(void)
+{
+    int    argc = 2;
+    char  *argv[] = { "seq", "-v", NULL };
+    char   buf[128] = {0};
+    char  *expected = "seq v";
+    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+    stderr_to_file(SEQ_TEST_STDERR);
+    mt_fok(u3_seq_main(argc, argv));
 
     rewind_stderr_file();
     read_stderr_file(buf, sizeof(buf));
@@ -679,5 +702,6 @@ int main(void)
     invalid_tests();
 
     mt_run(seq_print_help);
+    mt_run(seq_print_version);
     mt_return();
 }
