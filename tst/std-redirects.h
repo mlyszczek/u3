@@ -11,9 +11,11 @@
 int stdout_to_file(const char *file);
 int stderr_to_file(const char *file);
 int stdin_from_file(const char *file);
+int stdout_sabotage(const char *file);
 int restore_stdout(void);
 int restore_stderr(void);
 int restore_stdin(void);
+void stdout_recover(void);
 void rewind_stdout_file(void);
 void rewind_stderr_file(void);
 void rewind_stdin_file(void);

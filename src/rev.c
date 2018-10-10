@@ -269,7 +269,13 @@ int u3_rev_main
              * nothing to swap/
              */
 
-            fputs("\n", stdout);
+            if (fputs("\n", stdout) == EOF)
+            {
+                perror("e/fputs()");
+                ret = U3_EXIT_FAILURE;
+                goto error;
+            }
+
             continue;
         }
 
@@ -287,7 +293,13 @@ int u3_rev_main
          * as last character, since we didn't swap it
          */
 
-        fputs(line, stdout);
+        if (fputs(line, stdout) == EOF)
+        {
+            perror("e/fputs()");
+            ret = U3_EXIT_FAILURE;
+            goto error;
+        }
+
         line_pos = 0;
     }
 

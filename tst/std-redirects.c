@@ -32,12 +32,14 @@
    ========================================================================== */
 
 
-static int fd_stdin = -1;
-static int fd_stdout = -1;
-static int fd_stderr = -1;
-static int fd_stdin_file = -1;
-static int fd_stdout_file = -1;
-static int fd_stderr_file = -1;
+static FILE *stdout_save;
+static FILE *stdout_ro;
+static int   fd_stdin = -1;
+static int   fd_stdout = -1;
+static int   fd_stderr = -1;
+static int   fd_stdin_file = -1;
+static int   fd_stdout_file = -1;
+static int   fd_stderr_file = -1;
 
 
 /* ==========================================================================
@@ -166,6 +168,52 @@ int stdout_to_file
     }
 
     return 0;
+}
+
+
+/* ==========================================================================
+    Sabotages stdout FILE pointer so writing to it will result in error
+   ========================================================================== */
+
+
+int stdout_sabotage
+(
+    const char *file
+)
+{
+    /* first we need to create file or else we won't be able to
+     * open it in read only mode
+     */
+
+    stdout_ro = fopen(file, "w");
+    fclose(stdout_ro);
+
+    /* now we open file in read only mode, so writint to it will
+     * result in error
+     */
+
+    stdout_ro = fopen(file, "r");
+
+    /* now save stdout so we can restore it later and plant our
+     * bad FILE.
+     */
+
+    stdout_save = stdout;
+    stdout = stdout_ro;
+
+    return 0;
+}
+
+
+/* ==========================================================================
+    Recover stdout from sabotage
+   ========================================================================== */
+
+
+void stdout_recover(void)
+{
+    stdout = stdout_save;
+    fclose(stdout_ro);
 }
 
 

@@ -817,6 +817,62 @@ static void rev_lib_invalid_arg(void)
 
 
 /* ==========================================================================
+   ========================================================================== */
+
+
+static void rev_lib_stdout_error(void)
+{
+    int   argc = 2;
+    char *argv[] = { "rev", REV_TEST_FILE, NULL };
+    char  buf[128] = {0};
+    char  expected[128];
+    int   n[] = { 5, 21, 12, 4, INT_MAX };
+    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+    stderr_to_file(REV_TEST_STDERR);
+    rev_gen_data(n, 1, REV_TEST_FILE, expected);
+
+    stdout_sabotage(REV_TEST_STDOUT);
+    mt_fail(u3_rev_main(argc, argv) == -1);
+    stdout_recover();
+
+    rewind_stderr_file();
+    read_stderr_file(buf, sizeof(buf));
+    restore_stderr();
+    unlink(REV_TEST_STDOUT);
+    mt_fail(strncmp(buf, "e/fputs()", 9) == 0);
+}
+
+
+/* ==========================================================================
+   ========================================================================== */
+
+
+static void rev_lib_stdout_error_no_nl(void)
+{
+    int   argc = 2;
+    char *argv[] = { "rev", REV_TEST_FILE, NULL };
+    char  buf[128] = {0};
+    char  expected[128];
+    int   n[] = { 0, 0, 12, 4, INT_MAX };
+    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+    stderr_to_file(REV_TEST_STDERR);
+    rev_gen_data(n, 1, REV_TEST_FILE, expected);
+
+    stdout_sabotage(REV_TEST_STDOUT);
+    mt_fail(u3_rev_main(argc, argv) == -1);
+    stdout_recover();
+
+    rewind_stderr_file();
+    read_stderr_file(buf, sizeof(buf));
+    restore_stderr();
+    unlink(REV_TEST_STDOUT);
+    mt_fail(strncmp(buf, "e/fputs()", 9) == 0);
+}
+
+
+/* ==========================================================================
                                               _
                            ____ ___   ____ _ (_)____
                           / __ `__ \ / __ `// // __ \
@@ -828,6 +884,9 @@ static void rev_lib_invalid_arg(void)
 
 int main(void)
 {
+    mt_run(rev_lib_stdout_error);
+    mt_run(rev_lib_stdout_error_no_nl);
+
     mt_prepare_test = &prepare_test;
     mt_cleanup_test = &cleanup_test;
 

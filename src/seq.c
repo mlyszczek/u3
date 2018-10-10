@@ -230,6 +230,11 @@ int u3_seq_main
     {
         if (printf("%ld\n", current) < 0)
         {
+            /* when stdout fails there is still chance stderr will
+             * be available (like piped to some other file, whatever)
+             */
+
+            fprintf(stderr, "e/printf()");
             return U3_EXIT_FAILURE;
         }
     }

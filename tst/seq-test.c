@@ -635,6 +635,30 @@ static void seq_print_help(void)
 
 
 /* ==========================================================================
+   ========================================================================== */
+
+
+static void seq_stdout_error(void)
+{
+    int    argc = 2;
+    char  *argv[] = { "seq", "5" };
+    char   buf[128] = {0};
+    char  *expected = "e/printf()";
+    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+    stderr_to_file(SEQ_TEST_STDERR);
+    stdout_sabotage(SEQ_TEST_STDOUT);
+    mt_fail(u3_seq_main(argc, argv) == -1);
+    stdout_recover();
+
+    rewind_stderr_file();
+    read_stderr_file(buf, sizeof(buf));
+    mt_fail(strncmp(buf, expected, strlen(expected)) == 0);
+    restore_stderr();
+}
+
+
+/* ==========================================================================
                                               _
                            ____ ___   ____ _ (_)____
                           / __ `__ \ / __ `// // __ \
@@ -646,6 +670,8 @@ static void seq_print_help(void)
 
 int main(void)
 {
+    mt_run(seq_stdout_error);
+
     mt_prepare_test = prepare_test;
     mt_cleanup_test = cleanup_test;
 
