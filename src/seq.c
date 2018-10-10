@@ -73,17 +73,6 @@ static int get_number
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-    if (num == NULL)
-    {
-        /* this shouldn't happen as this situation is forbidden by
-         * the C standard, but we all know things just happen
-         */
-
-        fprintf(stderr, "e/number string is NULL\n");
-        errno = EINVAL;
-        return -1;
-    }
-
     if (*num == '\0')
     {
         fprintf(stderr, "e/number is an empty string\n");
@@ -140,7 +129,7 @@ int u3_seq_main
 
     if (argc == 2)
     {
-        if (argv[1] && argv[1][0] == '-')
+        if (argv[1][0] == '-')
         {
             if (argv[1][1] == 'v')
             {

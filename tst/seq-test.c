@@ -494,7 +494,6 @@ static void invalid_tests(void)
         {         "",         "",         "", EINVAL },
         {         "",         "",     "123f", EINVAL },
         {         "",         "",     "f123", EINVAL },
-        {         "",         "",       NULL, EINVAL },
         {         "",         "", "LONG_MAX", ERANGE },
         {         "",         "", "LONG_MIN", ERANGE },
 
@@ -508,13 +507,11 @@ static void invalid_tests(void)
 
         {        "2",         "",     "123f", EINVAL },
         {        "3",         "",     "f123", EINVAL },
-        {        "4",         "",       NULL, EINVAL },
         {        "5",         "", "LONG_MAX", ERANGE },
         {        "6",         "", "LONG_MIN", ERANGE },
 
         {     "123f",         "",        "2", EINVAL },
         {     "f123",         "",        "3", EINVAL },
-        {       NULL,         "",        "4", EINVAL },
         { "LONG_MAX",         "",        "5", ERANGE },
         { "LONG_MIN",         "",        "6", ERANGE },
 
@@ -528,50 +525,43 @@ static void invalid_tests(void)
 
         {        "2",        "2",     "123f", EINVAL },
         {        "3",        "3",     "f123", EINVAL },
-        {        "4",        "4",       NULL, EINVAL },
         {        "5",        "5", "LONG_MAX", ERANGE },
         {        "6",        "6", "LONG_MIN", ERANGE },
 
         {        "2",     "123f",        "2", EINVAL },
         {        "3",     "f123",        "3", EINVAL },
-        {        "4",       NULL,        "4", EINVAL },
         {        "5", "LONG_MAX",        "5", ERANGE },
         {        "6", "LONG_MIN",        "6", ERANGE },
         {        "1",        "0",        "7", EINVAL },
 
         {        "2",     "123f",     "123f", EINVAL },
         {        "3",     "f123",     "f123", EINVAL },
-        {        "4",       NULL,       NULL, EINVAL },
         {        "5", "LONG_MAX", "LONG_MAX", ERANGE },
         {        "6", "LONG_MIN", "LONG_MIN", ERANGE },
-        {        "7",          0, "LONG_MIN", ERANGE },
+        {        "7",        "0", "LONG_MIN", ERANGE },
 
         {     "123f",        "2",        "2", EINVAL },
         {     "f123",        "3",        "3", EINVAL },
-        {       NULL,        "4",        "4", EINVAL },
         { "LONG_MAX",        "5",        "5", ERANGE },
         { "LONG_MIN",        "6",        "6", ERANGE },
 
         {     "123f",        "2",     "123f", EINVAL },
         {     "f123",        "3",     "f123", EINVAL },
-        {       NULL,        "4",       NULL, EINVAL },
         { "LONG_MAX",        "5", "LONG_MAX", ERANGE },
         { "LONG_MIN",        "6", "LONG_MIN", ERANGE },
 
         {     "123f",     "123f",        "2", EINVAL },
         {     "f123",     "f123",        "3", EINVAL },
-        {       NULL,       NULL,        "4", EINVAL },
         { "LONG_MAX", "LONG_MAX",        "5", ERANGE },
         { "LONG_MIN", "LONG_MIN",        "6", ERANGE },
-        { "LONG_MIN",          0,        "7", ERANGE },
+        { "LONG_MIN",        "0",        "7", ERANGE },
 
         {         "",         "",         "", EINVAL },
         {     "123f",     "123f",     "123f", EINVAL },
         {     "f123",     "f123",     "f123", EINVAL },
-        {       NULL,       NULL,       NULL, EINVAL },
         { "LONG_MAX", "LONG_MAX", "LONG_MAX", ERANGE },
         { "LONG_MIN", "LONG_MIN", "LONG_MIN", ERANGE },
-        { "LONG_MIN",          0, "LONG_MIN", ERANGE },
+        { "LONG_MIN",        "0", "LONG_MIN", ERANGE },
 
         {       NULL,       NULL,       NULL,      0 }
     };
