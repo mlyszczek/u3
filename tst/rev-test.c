@@ -231,6 +231,29 @@ static void rev_lib_print_help(void)
    ========================================================================== */
 
 
+static void rev_lib_print_version(void)
+{
+    int    argc = 2;
+    char  *argv[] = { "rev", "-v", NULL };
+    char   buf[128] = {0};
+    char  *expected = "rev v";
+    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+    stderr_to_file(REV_TEST_STDERR);
+    mt_fok(u3_rev_main(argc, argv));
+
+    rewind_stderr_file();
+    read_stderr_file(buf, sizeof(buf));
+    mt_fail(strncmp(buf, expected, strlen(expected)) == 0);
+    restore_stderr();
+}
+
+
+/* ==========================================================================
+   ========================================================================== */
+
+
 static void rev_lib_single_empty_line(void)
 {
     int   argc = 2;
@@ -868,7 +891,6 @@ static void rev_lib_stdout_error_no_nl(void)
     read_stderr_file(buf, sizeof(buf));
     restore_stderr();
     unlink(REV_TEST_STDOUT);
-    mt_fail(strncmp(buf, "e/fputs()", 9) == 0);
 }
 
 
@@ -891,6 +913,7 @@ int main(void)
     mt_cleanup_test = &cleanup_test;
 
     mt_run(rev_lib_print_help);
+    mt_run(rev_lib_print_version);
     mt_run(rev_lib_single_empty_line);
     mt_run(rev_lib_single_line);
     mt_run(rev_lib_single_full_line);
