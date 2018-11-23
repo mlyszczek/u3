@@ -83,13 +83,13 @@ AS_IF([test "x$enable_malloc" = "xyes"],
 
 
 AC_ARG_ENABLE([standalone],
-    AS_HELP_STRING([--enable-standalone], [Enable use of malloc]),
+    AS_HELP_STRING([--enable-standalone], [Create standalone binaries]),
     [], [enable_standalone="yes"])
 
 AM_CONDITIONAL([ENABLE_STANDALONE], [test "x$enable_standalone" = "xyes"])
 AS_IF([test "x$enable_standalone" = "xyes"],
 [
-    AC_DEFINE([ENABLE_STANDALONE], [1], [Enable use of standalone])
+    AC_DEFINE([ENABLE_STANDALONE], [1], [Create standalone binaries])
 ],
 # else
 [
@@ -103,13 +103,13 @@ AS_IF([test "x$enable_standalone" = "xyes"],
 
 
 AC_ARG_ENABLE([library],
-    AS_HELP_STRING([--enable-library], [Enable use of malloc]),
+    AS_HELP_STRING([--enable-library], [Create libraries from programs]),
     [], [enable_library="yes"])
 
 AM_CONDITIONAL([ENABLE_LIBRARY], [test "x$enable_library" = "xyes"])
 AS_IF([test "x$enable_library" = "xyes"],
 [
-    AC_DEFINE([ENABLE_LIBRARY], [1], [Enable use of library])
+    AC_DEFINE([ENABLE_LIBRARY], [1], [Create libraries from programs])
 ],
 # else
 [
@@ -133,7 +133,7 @@ AC_OUTPUT
 
 echo
 echo "u3 compilation configuration summary"
-echo "build standalone...,...: $enable_standalone"
+echo "build standalone.......: $enable_standalone"
 echo "build library..........: $enable_library"
 echo ""
 echo "enable malloc..........: $enable_malloc"
