@@ -14,6 +14,7 @@ rev_expected_data="rev-expected-data"
 rev_line_max=$(cat ../config.h | grep U3_REV_LINE_MAX | cut -f3 -d' ')
 enable_malloc=$(cat ../config.h | grep ENABLE_MALLOC | cut -f3 -d' ')
 
+stderr=rev-test-stderr
 
 ## ==========================================================================
 #              ____                     __   _
@@ -27,7 +28,7 @@ enable_malloc=$(cat ../config.h | grep ENABLE_MALLOC | cut -f3 -d' ')
 
 mt_cleanup_test()
 {
-    rm -f stderr
+    rm -f ${stderr}
     rm -f "${rev_test_data}"
     rm -f "${rev_test_file}"
     rm -f "${rev_expected_data}"
@@ -129,8 +130,8 @@ gen_data()
 
 rev_sh_print_help()
 {
-    ${rev} -h 2>stderr
-    mt_fail "strcmp \"$(cat stderr)\" \"usage: rev [ -v | -h | <file> ]\""
+    ${rev} -h 2>${stderr}
+    mt_fail "strcmp \"$(cat ${stderr})\" \"usage: rev [ -v | -h | <file> ]\""
 }
 
 
@@ -177,15 +178,15 @@ rev_sh_pipe_single_full_line()
 rev_sh_pipe_single_overflow_line()
 {
     gen_data 1 $(( 2 * ${rev_line_max} ))
-    out="$(cat "${rev_test_data}" | ${rev} 2>stderr)"
+    out="$(cat "${rev_test_data}" | ${rev} 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -234,15 +235,15 @@ rev_sh_pipe_single_full_line_no_nl()
 rev_sh_pipe_single_overflow_line_no_nl()
 {
     gen_data 0 $(( 2 * ${rev_line_max} ))
-    out="$(cat "${rev_test_data}" | ${rev} 2>stderr)"
+    out="$(cat "${rev_test_data}" | ${rev} 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -291,15 +292,15 @@ rev_sh_pipe_multi_overflow_line()
 {
     gen_data 1 $(( 2 * ${rev_line_max} )) $(( 3 * ${rev_line_max} )) 42 \
         $(( 2 * ${rev_line_max} ))
-    out="$(cat "${rev_test_data}" | ${rev} 2>stderr)"
+    out="$(cat "${rev_test_data}" | ${rev} 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -349,15 +350,15 @@ rev_sh_pipe_multi_overflow_line_no_nl()
 {
     gen_data 1 $(( 2 * ${rev_line_max} )) $(( 3 * ${rev_line_max} )) 42 \
         $(( 2 * ${rev_line_max} ))
-    out="$(cat "${rev_test_data}" | ${rev} 2>stderr)"
+    out="$(cat "${rev_test_data}" | ${rev} 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -408,15 +409,15 @@ rev_sh_file_single_full_line()
 rev_sh_file_single_overflow_line()
 {
     gen_data 1 $(( 2 * ${rev_line_max} ))
-    out="$(${rev} "${rev_test_data}" 2>stderr)"
+    out="$(${rev} "${rev_test_data}" 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -467,15 +468,15 @@ rev_sh_file_single_full_line_no_nl()
 rev_sh_file_single_overflow_line_no_nl()
 {
     gen_data 0 $(( 2 * ${rev_line_max} ))
-    out="$(${rev} "${rev_test_data}" 2>stderr)"
+    out="$(${rev} "${rev_test_data}" 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -524,15 +525,15 @@ rev_sh_file_multi_overflow_line()
 {
     gen_data 1 $(( 2 * ${rev_line_max} )) $(( 3 * ${rev_line_max} )) 42 \
         $(( 2 * ${rev_line_max} ))
-    out="$(${rev} "${rev_test_data}" 2>stderr)"
+    out="$(${rev} "${rev_test_data}" 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -582,15 +583,15 @@ rev_sh_file_multi_overflow_line_no_nl()
 {
     gen_data 1 $(( 2 * ${rev_line_max} )) $(( 3 * ${rev_line_max} )) 42 \
         $(( 2 * ${rev_line_max} ))
-    out="$(${rev} "${rev_test_data}" 2>stderr)"
+    out="$(${rev} "${rev_test_data}" 2>${stderr})"
     empty=
 
     if [ "${enable_malloc}" = "1" ]
     then
         mt_fail "[ \"${out}\" = \"$(cat ${rev_expected_data})\" ]"
-        mt_fail "[ \"$(cat stderr)\" = \"${empty}\" ]"
+        mt_fail "[ \"$(cat ${stderr})\" = \"${empty}\" ]"
     else
-        mt_fail "strcmp \"$(cat stderr)\" \"e/line is longer than\""
+        mt_fail "strcmp \"$(cat ${stderr})\" \"e/line is longer than\""
         mt_fail "[ \"${out}\" = \"${empty}\" ]"
     fi
 }
@@ -602,8 +603,8 @@ rev_sh_file_multi_overflow_line_no_nl()
 
 rev_sh_three_args()
 {
-    ${rev} file1 file2 2>stderr
-    mt_fail "strcmp \"$(cat stderr)\" \"usage: rev [ -v | -h | <file> ]\""
+    ${rev} file1 file2 2>${stderr}
+    mt_fail "strcmp \"$(cat ${stderr})\" \"usage: rev [ -v | -h | <file> ]\""
 }
 
 
@@ -613,8 +614,8 @@ rev_sh_three_args()
 
 rev_sh_invalid_arg()
 {
-    ${rev} -a 2>stderr
-    mt_fail "strcmp \"$(cat stderr)\" \"e/invalid option -a\""
+    ${rev} -a 2>${stderr}
+    mt_fail "strcmp \"$(cat ${stderr})\" \"e/invalid option -a\""
 }
 
 
@@ -624,8 +625,8 @@ rev_sh_invalid_arg()
 
 rev_sh_file_not_found()
 {
-    ${rev} "/i/dont/exist" 2>stderr
-    mt_fail "strcmp \"$(cat stderr)\" \"e/fopen(): \""
+    ${rev} "/i/dont/exist" 2>${stderr}
+    mt_fail "strcmp \"$(cat ${stderr})\" \"e/fopen(): \""
 }
 
 
@@ -637,8 +638,8 @@ rev_sh_permision_denied()
 {
     echo "test" > "${rev_test_file}"
     chmod 200 "${rev_test_file}"
-    ${rev} "${rev_test_file}" 2>stderr
-    mt_fail "strcmp \"$(cat stderr)\" \"e/fopen(): \""
+    ${rev} "${rev_test_file}" 2>${stderr}
+    mt_fail "strcmp \"$(cat ${stderr})\" \"e/fopen(): \""
 }
 
 

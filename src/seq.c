@@ -27,8 +27,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <u3.h>
-#include <u3defs.h>
+#include "u3.h"
+#include "u3defs.h"
+#include "utils.h"
 
 
 /* ==========================================================================
@@ -54,49 +55,6 @@ static void print_help(void)
         "* <fist>, <increment> and <last> are all of type \"long int\"\n"
         "* possible values are (-LONG_MAX, LONG_MAX)\n"
     );
-}
-
-
-/* ==========================================================================
-    Converts string number 'num' into number representation. Converted value
-    will be stored in address pointed by 'n'.
-   ========================================================================== */
-
-
-static int get_number
-(
-    const char  *num,  /* string to convert to number */
-    long        *n     /* converted num will be placed here */
-)
-{
-    const char  *ep;   /* endptr for strtol function */
-    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-
-    if (*num == '\0')
-    {
-        fprintf(stderr, "e/number is an empty string\n");
-        errno = EINVAL;
-        return -1;
-    }
-
-    *n = strtol(num, (char **)&ep, 10);
-
-    if (*ep != '\0')
-    {
-        fprintf(stderr, "e/invalid number passed\n");
-        errno = EINVAL;
-        return -1;
-    }
-
-    if (*n == LONG_MAX || *n == LONG_MIN)
-    {
-        fprintf(stderr, "e/number is out of range\n");
-        errno = ERANGE;
-        return -1;
-    }
-
-    return 0;
 }
 
 
@@ -181,21 +139,21 @@ int u3_seq_main
         /* when all arguments are passed, increment is at 'argc == 2'
          */
 
-        current |= get_number(argv[2], &increment);
+        current |= u3u_get_number(argv[2], &increment);
 
     case 3:
          /* if more than 2 arguments are passed, 'first' will always
           * be at 'argc == 1' position
           */
 
-        current |= get_number(argv[1], &first);
+        current |= u3u_get_number(argv[1], &first);
 
     case 2:
         /* 'last' argument is always present and always is at 'argc - 1'
          * position
          */
 
-        current |= get_number(argv[argc - 1], &last);
+        current |= u3u_get_number(argv[argc - 1], &last);
 
         if (current == 0)
         {

@@ -122,6 +122,16 @@ AS_IF([test "x$enable_library" = "xyes"],
 #
 
 ###
+# TEST_RUN
+#
+
+
+AC_ARG_VAR([TEST_RUN], [Enables code neede by tests only])
+AS_IF([test "x$TEST_RUN" = "x"], [TEST_RUN="0"])
+AC_DEFINE_UNQUOTED([TEST_RUN], [$TEST_RUN], [Enables code neede by tests only])
+
+
+###
 # U3_REV_LINE_MAX
 #
 
@@ -129,12 +139,14 @@ AC_ARG_VAR([U3_REV_LINE_MAX], [Max size of line buffer])
 AS_IF([test "x$U3_REV_LINE_MAX" = "x"], [U3_REV_LINE_MAX="256"])
 AC_DEFINE_UNQUOTED([U3_REV_LINE_MAX], [$U3_REV_LINE_MAX], [Max size of line buffer])
 
+
 AC_OUTPUT
 
 echo
 echo "u3 compilation configuration summary"
 echo "build standalone.......: $enable_standalone"
 echo "build library..........: $enable_library"
+echo "test run...............: $TEST_RUN"
 echo ""
 echo "enable malloc..........: $enable_malloc"
 echo ""

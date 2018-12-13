@@ -3,10 +3,9 @@
     Author: Michał Łyszczek <michal.lyszczek@bofc.pl>
    ========================================================================== */
 
-#ifndef U3_PROGS_H
-#define U3_PROGS_H 1
+#ifndef U3_UTILS_H
+#define U3_UTILS_H 1
 
-int u3_rev_main(int argc, char *argv[]);
-int u3_seq_main(int argc, char *argv[]);
+int u3u_get_number(const char *num, long *n);
 
-#endif /* U3_PROGS_H */
+#endif
